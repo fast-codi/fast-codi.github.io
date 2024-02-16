@@ -315,6 +315,17 @@ hr.rounded {
     border: none;
 }
 
+#abstract h1 {
+    color: #2f2f2f;
+    font-family: Gelasio,Georgia,serif;
+    font-weight: normal;
+    font-size: 2vw;
+    padding-top: 2vw;
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #overview h1 {
     color: #2f2f2f;
     font-family: Gelasio,Georgia,serif;

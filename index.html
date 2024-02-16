@@ -36,150 +36,70 @@
                 Our proposed CoDi efficiently distills a conditional diffusion model from an unconditional one, enabling rapid generation of high-quality images under various conditional settings. We demonstrate CoDi's capabilities through generated results across various tasks.
             </figcaption>
         </figure>
-        <div id="abstract" class="grid-container">
+        <!-- <div id="abstract" class="grid-container">
+            <h1>CoDi</h1>
             <p>
                 We introduce a novel method dubbed CoDi, that adapts a pre-trained latent diffusion model to accept additional image conditioning inputs while significantly reducing the sampling steps required to achieve high-quality results. Our method can leverage architectures such as ControlNet to incorporate conditioning inputs without compromising the model's prior knowledge gained during large scale pre-training. Additionally, a conditional consistency loss enforces consistent predictions across diffusion steps, effectively compelling the model to generate high-quality images with conditions in a few steps. Our conditional-task learning and distillation approach outperforms previous distillation methods, achieving a new state-of-the-art in producing high-quality images with very few steps (e.g., 1-4) across multiple tasks, including super-resolution, text-guided image editing, and depth-to-image generation.
             </p>
-        </div>
+        </div> -->
     </div>
 </div>
 <hr class="rounded">
 <div id="overview">
-    <!-- <h1>Diffusion x Transformers</h1>
+    <h1><img src="https://www.gstatic.com/android/keyboard/emojikitchen/20201001/u1f430/u1f430_u1f422.png" width=32px /> CoDi</h1>
     <p>
-        Diffusion models have achieved amazing results in image generation over the past year. Almost all of these
-        models use a convolutional U-Net as a backbone. This is sort of surprising! The big story of deep learning
-        over the past couple of years has been the dominance of transformers across domains. Is there something special
-        about the U-Net&#8212or convolutions&#8212that make them work so well for diffusion models?
+        We introduce a novel method dubbed CoDi, that adapts a pre-trained latent diffusion model to accept additional image conditioning inputs while significantly reducing the sampling steps required to achieve high-quality results. Our method can leverage architectures such as ControlNet to incorporate conditioning inputs without compromising the model's prior knowledge gained during large scale pre-training. Additionally, a conditional consistency loss enforces consistent predictions across diffusion steps, effectively compelling the model to generate high-quality images with conditions in a few steps. Our conditional-task learning and distillation approach outperforms previous distillation methods, achieving a new state-of-the-art in producing high-quality images with very few steps (e.g., 1-4) across multiple tasks, including super-resolution, text-guided image editing, and depth-to-image generation.
     </p>
     <figure>
-        <img src="images/DiT/block.png" alt="Block designs for DiT." class="dit-block">
-    </figure>
-    <p>
-        In this paper, we replace the U-Net backbone in latent diffusion models (LDMs) with a transformer. We call these
-        models Diffusion Transformers, or DiTs for short. The DiT architecture is very similar to a standard Vision
-        Transformer (ViT), with a few small, but important, tweaks. Diffusion models need to process conditional inputs,
-        like diffusion timesteps or class labels. We experimented with a few different block designs to inject these inputs.
-        The one that works best is a ViT block with <i>adaptive layer norm</i> layers (adaLN). Importantly, these adaLN
-        layers also modulate the activations immediately prior to any residual connections within the block, and are initialized
-        such that each ViT block is the identity function. Simply changing the mechanism for injecting conditional inputs makes
-        a huge difference in terms of FID. This change was the only one we needed to get good performance; otherwise,
-        DiT is a fairly standard transformer model.
-    </p> -->
-
-    <!-- <h1>Scaling DiT</h1>
-    <figure>
-        <img class="dit-block" src="images/DiT/visual_scaling_row.jpg" alt="Scaling-up the DiT model significantly increases sample quality.">
+        <img class="teaser-block" src="imgs/codi_animate-compress.gif" alt="The animate of codi running.">
         <figcaption class="dit-block-caption">
-            Visualizing the effects of scaling-up DiT. We generated images from all 12 of our DiT models at 400K
-            training steps using identical sampling noise. More compute-intensive DiT models have significantly-higher
-            sample quality.
+            <em>Screen recording of CoDi generation. CoDi completes text-guided inpainting in 4 steps, which means CoDi only needs 500~ms in TPUv5.</em>  
         </figcaption>
     </figure>
-    <p>
-        Transformers are known to scale well in a variety of domains. How about as diffusion models? We scale DiT
-        along two axes in this paper: model size and number of input tokens.
-    </p>
-    <p>
-        <b>Scaling model size.</b> We tried four configs that differ by model depth and width: DiT-S, DiT-B, DiT-L and
-        DiT-XL. These model configs range from 33M to 675M parameters and 0.4 to 119 Gflops. They are borrowed from the
-        ViT literature which found that jointly scaling-up depth and width works well.
-    </p>
-    <p>
-        <b>Scaling tokens.</b> The first layer in DiT is the <i>patchify</i> layer. Patchify linearly embeds
-        each patch in the input image (or, in our case, the input <i>latent</i>), converting them into transformer tokens.
-        A small patch size corresponds to a large number of transformer tokens. For example, halving the patch size
-        quadruples the number of input tokens to the transformer, and thus at least quadruples the total Gflops of the model.
-        Although it has a huge impact on Gflops, note that patch size does not have a meaningful effect on model parameter counts.
-    </p>
-    <p>
-        For each of our four model configs, we train three models with latent patch sizes of 8, 4 and 2 (a total of 12 models).
-        Our highest-Gflop model is DiT-XL/2, which uses the largest XL config and a patch size of 2.
-    </p>
-    <figure>
-        <img class="teaser-block" src="images/DiT/scaling.png" alt="The effects of scaling DiT on FID.">
-    </figure>
-    <p>
-        Scaling both model size and the
-        number of input tokens substantially improves DiT's performance, as measured by Fréchet Inception Distance (FID).
-        As has been observed in other domains, compute&#8212not just parameters&#8212appears to be the key to obtaining better models. For example,
-        while DiT-XL/2 obtains excellent FID values, XL/8 performs poorly. XL/8 has slightly more parameters than XL/2 but
-        much fewer Gflops. We also find that our larger DiT models are compute-efficient relative to smaller models; the larger models require
-        less training compute to reach a given FID than smaller models (see the paper for details).
-    </p>
-    <figure>
-        <img class="teaser-block" src="images/DiT/training-complexity.png" alt="Training complexity of DiT.">
-    </figure>
 
+    <h1>One-stage Conditional Distillation</h1>
+    <figure>
+        <img class="dit-block" src="imgs/one-stage.jpg" alt="CoDi learns faster conditional sampling from unconditional pretraining.">
+        <!-- <figcaption class="dit-block-caption">
+        </figcaption> -->
+    </figure>
     <p>
-        Following our scaling analysis, DiT-XL/2 is clearly the best model when trained sufficiently long. We'll focus on
-        XL/2 for the rest of this post.
+        Compared with previous (two-stage) distillation methods---either distillation-first or fine-tuning-first, CoDi is the first single-stage distillation method that directly learns faster conditional sampling from a text-to-image pretraining, yiedling a fully distilled conditional diffusion model.
+    </p>
+
+    <h1>Parameter-Efficient Conditional Distillation</h1>
+    <figure>
+    <img class="teaser-block" src="imgs/pe-codi.png" alt="CoDi has unique parameters-efficient distillation that only uses the half of parmaeters.">
+    <!-- <figcaption class="teaser-caption">
+    </figcaption> -->
+    </figure>
+    <p>
+        CoDi offers the flexibility to selectively update parameters pertinent to distillation and conditional finetuning, leaving the remaining parameters frozen.
+        This leads us to introduce a new fashion of parameter-efficient conditional distillation, aiming at unifying the distillation process across commonly-used parameter-efficient diffusion model finetuning, including ControlNet, T2I-Adapter, etc.
+        Our method can then optimizes the conditional guidance and the consistency by only updating the duplicated encoder. 
     </p>
 
     <h1>Comparison to State-of-the-Art Diffusion Models</h1>
     <figure>
-    <img class="teaser-block" src="images/DiT/teaser_v2.png" alt="Samples from our state-of-the-art DiT-XL/2 model.">
-    <figcaption class="teaser-caption">
-        Selected samples from our DiT-XL/2 models trained at 512x512 resolution (top row) and 256x256 resolution (bottom).
-        Here, we used classifier-free guidance scales of 6.0 for the 512 model and 4.0 for the 256 model.
-    </figcaption>
+    <img class="teaser-block" src="imgs/performance.png" alt="CoDi's performance on super-resolution, inpainting, and depth-to-image benchmarks.">
+    <!-- <figcaption class="teaser-caption">
+    </figcaption> -->
     </figure>
     <p>
-        We trained two versions of DiT-XL/2 at 256x256 and 512x512 resolution on
-        ImageNet for 7M and 3M steps, respectively. When using classifier-free guidance, DiT-XL/2 outperforms all prior diffusion models, decreasing the
-        previous best FID-50K of 3.60 achieved by LDM (256x256) to 2.27; this is state-of-the-art among all generative
-        models. XL/2 again outperforms all prior diffusion models at 512x512 resolution, improving the previous best
-        FID of 3.85 achieved by ADM-U to 3.04.
+        Quantitative performance comparisons between the baselines and our methods. Our model can achieve comparable performance in 4 steps than models sampled in 250 steps. The 4-step sampling results of our parameters-efficient distillation (PE-CoDi) is comparable with the original 8-step sampling results, while PE-CoDi doesn't sacrifice the original generative performance with frozen backbone.
     </p>
+
+    <h1>Comparison to Consistency Models</h1>
     <figure>
-        <img class="teaser-block" src="images/DiT/bubbles.png" alt="Gflop comparisons of DiT and baselines.">
+    <img class="teaser-block" style="max-width: 100%;" src="imgs/compare-cm.png" alt="CoDi performs better than consistency models on super-resolution and inpainting.">
+    <!-- <figcaption class="teaser-caption">
+    </figcaption> -->
     </figure>
     <p>
-        In addition to obtaining good FIDs, the DiT model itself remains compute-efficient relative to baselines.
-        For example, at 256x256 resolution, the LDM-4 model is 103 Gflops, ADM-U is 742 Gflops and DiT-XL/2 is 119 Gflops.
-        At 512x512 resolution, ADM-U is 2813 Gflops whereas XL/2 is only 525 Gflops.
-    </p>
-    <h1>Walking Through Latent Space</h1>
-
-    <p>
-        Finally, we show some latent walks for DiT-XL/2. We slerp through several different selections of
-        initial noise, using the deterministic DDIM sampler to generate each intermediate image.
+        CoDi outperforms the consistency models by generating higher quality results on the super-resolution (left) and text-guided inpainting (right) benchmarks.
     </p>
 
-    <figure style="margin-bottom: 20px;margin-top:20px">
-        <video loop autoplay muted playsinline>
-            <source src="images/DiT/walks/mq/z-walk-DiT-XL-patch2-vae-ft-ema-7005600-cfg-4.0-rng42-grid.mp4" type="video/mp4">
-        </video>
-        <figcaption>
-            Walking through the latent space of DiT-XL/2 (256x256). We use a classifier-free guidance scale of 4.0.<br>
-            <a style="color: darkblue" href="https://media.githubusercontent.com/media/wpeebles/wpeebles.github.io/master/images/DiT/walks/hq/z-walk-DiT-XL-patch2-vae-ft-ema-7005600-cfg-4.0-rng42-grid.mp4">[Uncompressed]</a>
-        </figcaption>
-    </figure>
 
-    <p>
-        We can also walk through the label embedding space of DiT. For example, we can linearly interpolate
-        between the embeddings for many dog breeds as well as the "tennis ball" class.
-    </p>
-
-    <figure style="margin-bottom: 20px;margin-top:20px">
-        <video loop autoplay muted playsinline>
-            <source src="images/DiT/walks/mq/y-walk-DiT-XL-patch2-res512-vae-ft-ema-3002400-cfg-4.0-grid.mp4" type="video/mp4">
-        </video>
-        <figcaption>
-            Walking through DiT-XL/2's (512x512) learned label embedding space. We interpolate dog breeds and "tennis ball"
-            (first column), ocean marine life classes (second), natural settings (third) and
-            bird species (fourth). <br><a style="color: darkblue" href="https://media.githubusercontent.com/media/wpeebles/wpeebles.github.io/master/images/DiT/walks/hq/y-walk-DiT-XL-patch2-res512-vae-ft-ema-3002400-cfg-4.0-grid.mp4">[Uncompressed]</a>
-        </figcaption>
-    </figure>
-    <p>
-        As shown in the left-most column
-        above, DiT can generate animal and object hybrids by simply interpolating between embeddings (similar to the
-        <a href="https://twitter.com/ajmooch/status/1125209919454629888" style="color: darkblue">dog-ball hybrid</a> from
-        BigGAN!).
-    </p>
-    <figure>
-        <img class="teaser-block" src="images/DiT/dogball.jpg" alt="Generative modeling has truly progressed.">
-    </figure> -->
     <h1>BibTeX</h1>
     <p class="bibtex">
         @article{mei2023conditional,<br>
