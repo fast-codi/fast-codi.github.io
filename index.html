@@ -1,114 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="main.css">
-    <title>CoDi</title>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoDi: Conditional Diffusion Distillation for <br /> Higher-Fidelity and Faster Image Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
 </head>
 <body>
-<div id="title_slide">
-    <div class="gradient-bg"></div>
-    <div class="title_left">
-        <h1>CoDi: Conditional Diffusion Distillation for <br /> Higher-Fidelity and Faster Image Generation</h1>
-        <div class="author-container">
-            <div class="grid-item"><a href="https://kfmei.page" style="text-decoration:underline">Kangfu Mei</a></div>
-            <div class="grid-item"><a href="https://mdelbra.github.io" style="text-decoration:underline">Mauricio Delbracio</a></div>
-            <div class="grid-item"><a href="https://research.google/people/hossein-talebi/" style="text-decoration:underline">Hossein Talebi</a></div>
-            <div class="grid-item"><a href="https://www.linkedin.com/in/zhengzhong-tu-92419790/" style="text-decoration:underline">Zhengzhong Tu</a></div>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">CoDi: Conditional Diffusion Distillation for <br /> Higher-Fidelity and Faster Image Generation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://kfmei.page">Kangfu Mei</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://mdelbra.github.io">Mauricio Delbracio</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://research.google/people/hossein-talebi/">Hossein Talebi</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/zhengzhong-tu-92419790/">Zhengzhong Tua</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://engineering.jhu.edu/vpatel36/team/vishalpatel/">Vishal M. Patel</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/milanfarhome/">Peyman Milanfar</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Google Research,</span>
+            <span class="author-block"><sup>2</sup>Johns Hopkins University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://fast-codi.github.io"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span>Project Page</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://www.cis.jhu.edu/~kmei1/publics/CoDi-high-resolution.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2310.01407"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/fast-codi/CoDi"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="author-container">
-            <div class="grid-item"><a href="https://engineering.jhu.edu/vpatel36/team/vishalpatel/" style="text-decoration:underline">Vishal M. Patel</a></div>
-            <div class="grid-item"><a href="https://sites.google.com/view/milanfarhome/" style="text-decoration:underline">Peyman Milanfar</a></div>
-        </div>
-        <div class="berkeley"> <!-- Add UC Berkeley aligned beneath William Peebles and NYU aligned beneath Saining Xie-->
-            <div class="grid-item">Google Research</div>
-            <div class="grid-item">Johns Hopkins University</div>
-        </div>
-        <div class="button-container">
-            <a href="https://arxiv.org/abs/2310.01407" class="button gradient-button">Paper</a>
-            <a href="https://github.com/fast-codi/CoDi" class="button gradient-button">Code</a>
-            <!-- <a href="https://huggingface.co/spaces/wpeebles/DiT" class="button gradient-button">🤗 Space</a> -->
-            <!-- <a href="http://colab.research.google.com/github/facebookresearch/DiT/blob/main/run_DiT.ipynb" class="button gradient-button">Colab</a> -->
-        </div>
-        <figure>
-            <img src="imgs/teaser-sub-a.jpg" alt="teaser" style="max-width: 100%;">
-            <figcaption>
-                Our proposed CoDi efficiently distills a conditional diffusion model from an unconditional one, enabling rapid generation of high-quality images under various conditional settings. We demonstrate CoDi's capabilities through generated results across various tasks.
-            </figcaption>
-        </figure>
-        <!-- <div id="abstract" class="grid-container">
-            <h1>CoDi</h1>
-            <p>
-                We introduce a novel method dubbed CoDi, that adapts a pre-trained latent diffusion model to accept additional image conditioning inputs while significantly reducing the sampling steps required to achieve high-quality results. Our method can leverage architectures such as ControlNet to incorporate conditioning inputs without compromising the model's prior knowledge gained during large scale pre-training. Additionally, a conditional consistency loss enforces consistent predictions across diffusion steps, effectively compelling the model to generate high-quality images with conditions in a few steps. Our conditional-task learning and distillation approach outperforms previous distillation methods, achieving a new state-of-the-art in producing high-quality images with very few steps (e.g., 1-4) across multiple tasks, including super-resolution, text-guided image editing, and depth-to-image generation.
-            </p>
-        </div> -->
+      </div>
     </div>
-</div>
-<hr class="rounded">
-<div id="overview">
-    <h1><img src="https://www.gstatic.com/android/keyboard/emojikitchen/20201001/u1f430/u1f430_u1f422.png" width=32px /> CoDi</h1>
-    <p>
-        We introduce a novel method dubbed CoDi, that adapts a pre-trained latent diffusion model to accept additional image conditioning inputs while significantly reducing the sampling steps required to achieve high-quality results. Our method can leverage architectures such as ControlNet to incorporate conditioning inputs without compromising the model's prior knowledge gained during large scale pre-training. Additionally, a conditional consistency loss enforces consistent predictions across diffusion steps, effectively compelling the model to generate high-quality images with conditions in a few steps. Our conditional-task learning and distillation approach outperforms previous distillation methods, achieving a new state-of-the-art in producing high-quality images with very few steps (e.g., 1-4) across multiple tasks, including super-resolution, text-guided image editing, and depth-to-image generation.
-    </p>
-    <figure>
-        <img class="teaser-block" src="imgs/codi_animate-compress.gif" alt="The animate of codi running.">
-        <figcaption class="dit-block-caption">
-            <em>Screen recording of CoDi generation. CoDi completes text-guided inpainting in 4 steps, which means CoDi only needs 500~ms in TPUv5.</em>  
-        </figcaption>
-    </figure>
+  </div>
+</section>
 
-    <h1>One-stage Conditional Distillation</h1>
-    <figure>
-        <img class="dit-block" src="imgs/one-stage.jpg" alt="CoDi learns faster conditional sampling from unconditional pretraining.">
-        <!-- <figcaption class="dit-block-caption">
-        </figcaption> -->
-    </figure>
-    <p>
-        Compared with previous (two-stage) distillation methods---either distillation-first or fine-tuning-first, CoDi is the first single-stage distillation method that directly learns faster conditional sampling from a text-to-image pretraining, yiedling a fully distilled conditional diffusion model.
-    </p>
-
-    <h1>Parameter-Efficient Conditional Distillation</h1>
-    <figure>
-    <img class="teaser-block" src="imgs/pe-codi.png" alt="CoDi has unique parameters-efficient distillation that only uses the half of parmaeters.">
-    <!-- <figcaption class="teaser-caption">
-    </figcaption> -->
-    </figure>
-    <p>
-        CoDi offers the flexibility to selectively update parameters pertinent to distillation and conditional finetuning, leaving the remaining parameters frozen.
-        This leads us to introduce a new fashion of parameter-efficient conditional distillation, aiming at unifying the distillation process across commonly-used parameter-efficient diffusion model finetuning, including ControlNet, T2I-Adapter, etc.
-        Our method can then optimizes the conditional guidance and the consistency by only updating the duplicated encoder. 
-    </p>
-
-    <h1>Comparison to State-of-the-Art Diffusion Models</h1>
-    <figure>
-    <img class="teaser-block" src="imgs/performance.png" alt="CoDi's performance on super-resolution, inpainting, and depth-to-image benchmarks.">
-    <!-- <figcaption class="teaser-caption">
-    </figcaption> -->
-    </figure>
-    <p>
-        Quantitative performance comparisons between the baselines and our methods. Our model can achieve comparable performance in 4 steps than models sampled in 250 steps. The 4-step sampling results of our parameters-efficient distillation (PE-CoDi) is comparable with the original 8-step sampling results, while PE-CoDi doesn't sacrifice the original generative performance with frozen backbone.
-    </p>
-
-    <h1>Comparison to Consistency Models</h1>
-    <figure>
-    <img class="teaser-block" style="max-width: 100%;" src="imgs/compare-cm.png" alt="CoDi performs better than consistency models on super-resolution and inpainting.">
-    <!-- <figcaption class="teaser-caption">
-    </figcaption> -->
-    </figure>
-    <p>
-        CoDi outperforms the consistency models by generating higher quality results on the super-resolution (left) and text-guided inpainting (right) benchmarks.
-    </p>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" src="imgs/teaser-sub-a.jpg" height="100%" alt="teaser"> 
+      <h2 class="subtitle has-text-centered">
+        Conditional Distillation (CoDi) efficiently distills a faster conditional model from an unconditional one, enabling rapid generation of high-quality images under various conditional settings.
+      </h2>
+    </div>
+  </div>
+</section>
 
 
-    <h1>BibTeX</h1>
-    <p class="bibtex">
-        @article{mei2023conditional,<br>
-        &nbsp;&nbsp;title={CoDi: Conditional Diffusion Distillation for Higher-Fidelity and Faster Image Generation},<br>
-        &nbsp;&nbsp;author={Mei, Kangfu and Delbracio, Mauricio and Talebi, Hossein and Tu, Zhengzhong and Patel, Vishal M and Milanfar, Peyman},<br>
-        &nbsp;&nbsp;year={2023},<br>
-        &nbsp;&nbsp;journal={arXiv preprint arXiv:2310.01407},<br>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <img src="imgs/codi_animate-compress.gif" alt="">
+          <figcaption style="font-size: 1rem; text-align: center; padding: 0.5rem;">
+            <em>Screen recording of CoDi generation. CoDi completes text-guided inpainting in 4 steps, which means CoDi only needs 500~ms in TPUv5.</em>
+          </figcaption>
+        </div>
+        <div class="item item-steve">
+            <img src="imgs/teaser-sub-a-3.jpg" alt="">
+            <figcaption style="font-size: 1rem; text-align: center; padding: 0.5rem;">
+              <em>CoDi can generate high-quality, diverse text-guided inpainting in 4-step sampling.</em>
+            </figcaption>
+        </div>
+        <div class="item item-steve">
+            <img src="imgs/editing.jpg" alt="">
+            <figcaption style="font-size: 1rem; text-align: center; padding: 0.5rem;">
+              <em>CoDi only needs one-step for simple image-editing tasks.</em>
+            </figcaption>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large generative diffusion models have revolutionized text-to-image generation and offer immense potential for conditional generation tasks such as image enhancement, restoration, editing, and compositing. However, their widespread adoption is hindered by the high computational cost, which limits their real-time application. 
+          </p>
+          <p>
+            To address this challenge, we introduce a novel method dubbed CoDi, that adapts a pre-trained latent diffusion model to accept additional image conditioning inputs while significantly reducing the sampling steps required to achieve high-quality results. Our method can leverage architectures such as ControlNet to incorporate conditioning inputs without compromising the model's prior knowledge gained during large scale pre-training. Additionally, a conditional consistency loss enforces consistent predictions across diffusion steps, effectively compelling the model to generate high-quality images with conditions in a few steps.
+          </p>
+          <p>
+            Our conditional-task learning and distillation approach outperforms previous distillation methods, achieving a new state-of-the-art in producing high-quality images with very few steps (e.g., 1-4) across multiple tasks, including super-resolution, text-guided image editing, and depth-to-image generation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">One-stage Conditional Distillation</h3>
+        <div class="content has-text-justified" style="text-align: center;">
+          <p>
+            Compared with previous (two-stage) distillation methods---either distillation-first or fine-tuning-first, CoDi is the first single-stage distillation method that directly learns faster conditional sampling from a text-to-image pretraining, yiedling a fully distilled conditional diffusion model.
+          </p>
+          <div class="content has-text-centered">
+            <img src="imgs/overview_of_codi.svg" alt="" style="max-width: 60%;">
+          </div>
+        </div>
+        <br/>
+
+        <h3 class="title is-4">Parameter-Efficient Conditional Distillation</h3>
+        <div class="content has-text-justified">
+          <p>
+            CoDi offers the flexibility to selectively update parameters pertinent to distillation and conditional finetuning, leaving the remaining parameters frozen, i.e., Parameters-Efficient CoDi (<b>Pe-CoDi</b>).
+            This leads us to introduce a new fashion of parameter-efficient conditional distillation, aiming at unifying the distillation process across commonly-used parameter-efficient diffusion model finetuning, including ControlNet, T2I-Adapter, etc.
+            Our method can then optimizes the conditional guidance and the consistency by only updating the duplicated encoder. 
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="imgs/pe-codi.png" alt="">
+        </div>
+
+        <h3 class="title is-4">Comparison to State-of-the-Art Diffusion Models</h3>
+        <div class="content has-text-justified">
+          <p>
+            Quantitative performance comparisons between the baselines and our methods. Our model can achieve comparable performance in 4 steps than models sampled in 250 steps. The 4-step sampling results of our parameters-efficient distillation (PE-CoDi) is comparable with the original 8-step sampling results, while PE-CoDi doesn't sacrifice the original generative performance with frozen backbone.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="imgs/performance.png" alt="">
+        </div>
+
+        <h3 class="title is-4">Comparison to Consistency Models</h3>
+        <div class="content has-text-justified">
+          <p>
+            CoDi outperforms the consistency models by generating higher quality results on the super-resolution (left) and text-guided inpainting (right) benchmarks.
+        </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="imgs/compare-cm.png" alt="">
+        </div>
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Acknowledgments</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            The authors would like to thank our colleagues Keren Ye and Chenyang Qi for reviewing the manuscript and providing valuable feedback.
+            We also extend our gratitude to Shlomi Fruchter, Kevin Murphy, Mohammad Babaeizadeh, and Han Zhang for their instrumental contributions in facilitating the initial implementation of the latent diffusion models.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+        @article{mei2023conditional,
+        &nbsp;title={CoDi: Conditional Diffusion Distillation for Higher-Fidelity and Faster Image Generation},
+        &nbsp;author={Mei, Kangfu and Delbracio, Mauricio and Talebi, Hossein and Tu, Zhengzhong and Patel, Vishal M and Milanfar, Peyman},
+        &nbsp;year={2023},
+        &nbsp;journal={arXiv preprint arXiv:2310.01407},
         }
-    </p>
-</div>
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2310.01407">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/fast-codi/CoDi" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is inspired from <a href="https://github.com/nerfies/nerfies.github.io/tree/main">Nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
